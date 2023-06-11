@@ -3,10 +3,10 @@ import "./index.css";
 
 export default function Calculator() {
   const [form, setForm] = React.useState({
-    input1:'', input2: ''
+    input1: "",
+    input2: "",
   });
-
-  console.log({form})
+  const [operation, setOperation] = React.useState(null);
 
   const onChangeForm = (e) => {
     setForm({
@@ -15,22 +15,25 @@ export default function Calculator() {
     });
   };
 
-  const handleOperation = (operation)=>{
-    switch(operation){
-      case '+':
-        return Number(form['input1']) + Number(form['input2']);
-      case '-':
-        return Number(form['input1']) - Number(form['input2']);
-      case '*':
-        return Number(form['input1']) * Number(form['input2']);
-      default:
-        return Number(form['input1']) / Number(form['input2']);
+  const handleOperation = () => {
+    if (operation) {
+      switch (operation) {
+        case "+":
+          return Number(form["input1"]) + Number(form["input2"]);
+        case "-":
+          return Number(form["input1"]) - Number(form["input2"]);
+        case "*":
+          return Number(form["input1"]) * Number(form["input2"]);
+        default:
+          return Number(form["input1"]) / Number(form["input2"]);
+      }
     }
-  }
+  };
 
-  const handleReset = (e)=>{
-    setForm({...form,[e.target.name]: ''})
-  }
+  const handleReset = (e) => {
+    setForm({ input1: "", input2: "" });
+    setOperation(null)
+  };
 
   return (
     <div className="layout-column align-items-center">
@@ -48,8 +51,8 @@ export default function Calculator() {
               autoComplete="off"
               placeholder="Eg: 1"
               name="input1"
-              value = {form["input1"]}
-              onChange = {onChangeForm}
+              value={form["input1"]}
+              onChange={onChangeForm}
             />
             <label
               className="ml-2 mr-2 symbol text-center"
@@ -62,9 +65,9 @@ export default function Calculator() {
               autoComplete="off"
               className="ml-3 mr-3"
               placeholder="Eg: 2"
-              name='input2'
-              value = {form["input2"]}
-              onChange = {onChangeForm}
+              name="input2"
+              value={form["input2"]}
+              onChange={onChangeForm}
             />
           </div>
 
@@ -73,7 +76,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="addButton"
-              onClick = {()=>handleOperation('+')}
+              onClick={()=>setOperation("+")}
             >
               +
             </button>
@@ -81,7 +84,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="subtractButton"
-              onClick = {()=>handleOperation('-')}
+              onClick={()=>setOperation("-")}
             >
               -
             </button>
@@ -89,7 +92,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="multiplyButton"
-              onClick = {()=>handleOperation('*')}
+              onClick={()=>setOperation("*")}
             >
               *
             </button>
@@ -97,7 +100,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="divideButton"
-              onClick = {()=>handleOperation('/')}
+              onClick={()=>setOperation("/")}
             >
               /
             </button>
@@ -108,7 +111,7 @@ export default function Calculator() {
               type="reset"
               data-testid="resetButton"
               className="outline danger"
-              onClick = {handleReset}
+              onClick={handleReset}
             >
               Reset
             </button>
@@ -116,7 +119,9 @@ export default function Calculator() {
               <div
                 data-testid="result"
                 className="result-value ma-0 slide-up-fade-in"
-              >{`Result: ${handleOperation()}`}</div>
+              >
+                {form['input1'] && form['input2'] && operation ? `Result: ${handleOperation()}` : ""}
+              </div>
             </div>
           </div>
         </section>
