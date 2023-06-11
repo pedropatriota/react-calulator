@@ -73,6 +73,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="addButton"
+              onClick = {()=>handleOperation('+')}
             >
               +
             </button>
@@ -80,6 +81,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="subtractButton"
+              onClick = {()=>handleOperation('-')}
             >
               -
             </button>
@@ -87,6 +89,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="multiplyButton"
+              onClick = {()=>handleOperation('*')}
             >
               *
             </button>
@@ -94,6 +97,7 @@ export default function Calculator() {
               className="operationFont"
               type="submit"
               data-testid="divideButton"
+              onClick = {()=>handleOperation('/')}
             >
               /
             </button>
